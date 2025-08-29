@@ -1,5 +1,3 @@
-#include <iostream>
-using namespace std;
 /*
 Implement a program that dynamically allocates a 1D array of integers.
 => The size should be given by the user.
@@ -7,6 +5,9 @@ Implement a program that dynamically allocates a 1D array of integers.
 => Then, let the user update values at different positions.
 => Finally, print the array and deallocate memory properly
 */
+#include <iostream>
+using namespace std;
+
 void displayArr(int* arr, int noOfElements) {
     for(int i = 0; i < noOfElements; i++) {
         cout << i+1 << " : "<< arr[i] << endl;
@@ -37,5 +38,4 @@ int main() {
 
     displayArr(arr, noOfElements);
     
-
 }
