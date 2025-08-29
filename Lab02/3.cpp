@@ -92,6 +92,12 @@ public:
     {
         cout << "Average Marks: " << averageMarks;
     }
+
+     ~Student() {
+        delete[] courses;
+        courses = nullptr;
+    }
+
 };
 
 int main()
@@ -135,6 +141,7 @@ int main()
         students[i].displayAverageMarks();
     }
     cout << endl;
+    delete[] students;
 }
 
 
