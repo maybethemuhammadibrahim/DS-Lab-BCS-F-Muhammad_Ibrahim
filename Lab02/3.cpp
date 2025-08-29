@@ -1,12 +1,145 @@
-/*
-Task #3:
-Design a program to handle marks of students in different courses using a jagged array
-(since each student is enrolled in a different number of courses).
-=> Input the number of courses each student takes.
-=> Dynamically allocate memory for each student accordingly.
-=> Calculate and display each student’s average marks.
 
-*/
+
+// assuming each row is a student and the no of columns in each row is their enrolled courses
+//
+#include <iostream>
+using namespace std;
+
+class CourseEnrolled
+{
+private:
+    string name;
+    float marks;
+
+public:
+    CourseEnrolled(string name = "", float marks = 0) : name(name), marks(marks) {}
+
+    void setName(string name)
+    {
+        this->name = name;
+    }
+
+    void setMarks(float marks)
+    {
+        this->marks = marks;
+    }
+
+    string getName()
+    {
+        return name;
+    }
+
+    float getMarks()
+    {
+        return marks;
+    }
+};
+
+class Student
+{
+private:
+    string name;
+    CourseEnrolled *courses = nullptr;
+    int noOfCourses;
+    float averageMarks; // of each student across all courses
+
+public:
+    Student(string name = "", int noOfCourses = 0, float avg = 0) : name(name), noOfCourses(noOfCourses), averageMarks(avg)
+    {
+    }
+
+    void setName(string name)
+    {
+        this->name = name;
+    }
+
+    string getName()
+    {
+        return name;
+    }
+
+    void assignCourses(int noOfCourses)
+    {
+        string tempString;
+        float tempFloat = 0, tempSum = 0;
+        this->noOfCourses = noOfCourses;
+
+        courses = new CourseEnrolled[noOfCourses];
+        for (int i = 0; i < noOfCourses; i++)
+        {
+            cout << "Enter Name Of Course " << i + 1 << ": ";
+            cin >> tempString;
+            cout << "Enter Marks Obtained in " << tempString << ": ";
+            cin >> tempFloat;
+            tempSum += tempFloat;
+            courses[i].setName(tempString);
+            courses[i].setMarks(tempFloat);
+        }
+        this->averageMarks = tempSum / noOfCourses;
+    }
+
+    void displayCourses()
+    {
+        // cout << name << "'s courses" << endl;
+        for (int i = 0; i < noOfCourses; i++)
+        {
+            cout << courses[i].getName() << ",";
+        }
+        // cout << endl;
+    }
+
+    void displayAverageMarks()
+    {
+        cout << "Average Marks: " << averageMarks;
+    }
+};
+
+int main()
+{
+    Student *students; // for rows
+    // columns are stored in "Student" objects themselves
+
+    int noOfStudents;
+    string tempString;
+    int tempInt;
+
+    cout << "Enter No Of Students : ";
+    cin >> noOfStudents;
+    students = new Student[noOfStudents];
+    for (int i = 0; i < noOfStudents; i++)
+    {
+        cout << "Enter Student " << i + 1 << "'s name: ";
+        cin >> tempString;
+        students[i].setName(tempString);
+        cout << "Enter " << tempString << " no of enrolled courses: ";
+        cin >> tempInt;
+        students[i].assignCourses(tempInt);
+    }
+
+    cout << "\nIn Jagged Array Form: ";
+    for (int i = 0; i < noOfStudents; i++)
+    {
+
+        cout << "\n"
+             << students[i].getName() << "->";
+        students[i].displayCourses();
+    }
+
+    cout << endl;
+    cout << "\nEach Student's Average Marks : ";
+    for (int i = 0; i < noOfStudents; i++)
+    {
+
+        cout << "\n"
+             << students[i].getName() << "->";
+        students[i].displayAverageMarks();
+    }
+    cout << endl;
+}
+
+
+//Old Implementation
+/*
 
 // assuming each row is a student and the no of columns in each row is their enrolled courses
 //
@@ -113,4 +246,4 @@ int main()
     // Free other dynamic arrays
     delete[] noOfCourses;
     delete[] studentAverages;
-}
+}*/
