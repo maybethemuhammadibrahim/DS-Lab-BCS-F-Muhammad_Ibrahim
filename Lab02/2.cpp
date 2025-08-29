@@ -1,5 +1,3 @@
-#include <iostream>
-using namespace std;
 /*
 Task #2:
 Write a program that uses a dynamic 2D array to represent a seating chart in a classroom.
@@ -8,6 +6,9 @@ Write a program that uses a dynamic 2D array to represent a seating chart in a c
 => Let the user fill seats (1 for occupied).
 => Print the final seating chart in matrix form.
 */
+#include <iostream>
+using namespace std;
+
 void displayArr(int** arr, int rows, int cols) {
     for(int i = 0; i < rows; i++) {
         for(int j = 0; j < cols; j++) {
@@ -49,6 +50,7 @@ int main() {
         for(int j = 0; j <noOfColumns; j++) {
             cout << "at " << i+1 << "," << j+1 << " : ";
             cin >> temp;
+            //condition to verify 1 or 0
             if(temp == 1 || temp == 0) {
                 benches[i][j] = temp;
             }
@@ -64,7 +66,6 @@ int main() {
     for(int i = 0; i < noOfBenches; i++) {
         delete[] benches[i];
     }
-
     delete[] benches;
     cout << "Memory freed" << endl;
     // displayArr(benches,noOfBenches,noOfColumns);
