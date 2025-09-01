@@ -3,6 +3,7 @@
 =>
 Demonstrate the class by storing marks of 5 students and printing them safely without
 direct pointer manipulation.*/
+/*Used Prettier(Vs Code extention for formatting code)*/
 
 #include <iostream>
 using namespace std;
@@ -13,7 +14,7 @@ private:
     int *p = nullptr;
 
 public:
-    SafePointer(int val = 0)
+    SafePointer(int val = 0)//if value passed at initialization
     {
         p = new int;
         *p = val;
@@ -36,7 +37,7 @@ public:
 
     ~SafePointer()
     {
-        // delete p;
+        delete p;
     }
 };
 

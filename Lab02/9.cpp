@@ -31,32 +31,34 @@ void freeMatrix(int **&matrix, int rows)
 
 void generateCompressedMatrix(int **&arr, int rows, int cols, int **&compMatrix, int &rowsOfCompMatrix, int &colsOfCompMatrix)
 {
-   int nonZeroCount = 0;
-   for (int i = 0; i < rows; i++)
+    int nonZeroCount = 0;
+    for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
         {
-            if(arr[i][j] != 0)
+            if (arr[i][j] != 0)
                 nonZeroCount++;
         }
     }
 
     cout << "Non-zero Count is " << nonZeroCount << endl;
 
-    compMatrix = new int*[nonZeroCount];
-    for(int i = 0; i < nonZeroCount; i++) {
+    compMatrix = new int *[nonZeroCount];
+    for (int i = 0; i < nonZeroCount; i++)
+    {
         compMatrix[i] = new int[3];
     }
     // cout << "Mem allocated" << endl;
 
     rowsOfCompMatrix = 0;
     colsOfCompMatrix = 3;
-    
+
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
         {
-            if(arr[i][j] != 0) {
+            if (arr[i][j] != 0)
+            {
                 // cout << "Non Zero term written" << endl;
                 compMatrix[rowsOfCompMatrix][0] = i;
                 compMatrix[rowsOfCompMatrix][1] = j;
@@ -84,13 +86,13 @@ int main()
     int **matrix = nullptr;
     int rows = 3, cols = 3;
 
-    //test values to debug
+    // test values to debug
     allocateMatrix(matrix, rows, cols);
-    matrix[0][0] = 0; 
-    matrix[0][1] = 0; 
-    matrix[0][2] = 3; 
+    matrix[0][0] = 0;
+    matrix[0][1] = 0;
+    matrix[0][2] = 3;
 
-    matrix[1][0] = 0; 
+    matrix[1][0] = 0;
     matrix[1][1] = 0; // zero
     matrix[1][2] = 5; // non-zero
 
@@ -103,7 +105,7 @@ int main()
 
     int **compressedMatrix = nullptr;
     int rowsOfCompMatrix, colsOfCompMatrix;
-    
+
     generateCompressedMatrix(matrix, rows, cols, compressedMatrix, rowsOfCompMatrix, colsOfCompMatrix);
     cout << "Compressed matrix is: " << endl;
     displayMatrix(compressedMatrix, rowsOfCompMatrix, colsOfCompMatrix);

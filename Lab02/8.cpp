@@ -45,17 +45,19 @@ int main()
         cout << "Day: " << i + 1 << ": " << avgTemps[i] << endl;
     }
 
-
-    //hottest, coldest
+    // hottest, coldest
     float maxTemp = avgTemps[0], minTemp = avgTemps[0];
     int maxDay = 0, minDay = 0;
 
-    for (int i = 1; i < n; i++) {
-        if (avgTemps[i] > maxTemp) {
+    for (int i = 1; i < n; i++)
+    {
+        if (avgTemps[i] > maxTemp)
+        {
             maxTemp = avgTemps[i];
             maxDay = i;
         }
-        if (avgTemps[i] < minTemp) {
+        if (avgTemps[i] < minTemp)
+        {
             minTemp = avgTemps[i];
             minDay = i;
         }
@@ -64,12 +66,11 @@ int main()
     cout << "Hottest day: day " << maxDay + 1 << " with avg temp " << maxTemp << endl;
     cout << "Coldest day: day " << minDay + 1 << " with avg temp " << minTemp << endl;
 
-
     for (int i = 0; i < n; i++)
     {
-        delete[] temps[i]; 
+        delete[] temps[i];
     }
-    delete[] temps;    
-    delete[] avgTemps; 
-    delete[] m;        
+    delete[] temps;
+    delete[] avgTemps;
+    delete[] m;
 }
