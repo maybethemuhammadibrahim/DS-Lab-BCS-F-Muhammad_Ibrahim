@@ -99,6 +99,7 @@ class LinkedList {
         // cout << currentA->getData() << endl;
         // cout << currentB->getData() << endl;
 
+        //choosing the first node for the merged list
         if(currentA->getData() <= currentB->getData()) {
             newHead = headA;
             // cout << currentA->getData() << endl;
@@ -112,20 +113,14 @@ class LinkedList {
         }
         newListPointer = newHead;
 
-        cout << currentA->getData() << endl;
-        cout << currentB->getData() << endl;
+        // cout << currentA->getData() << endl;
+        // cout << currentB->getData() << endl;
         
 
 
-        while(currentA != nullptr || currentB != nullptr) {
-            if(currentA == nullptr) {
-                newListPointer->setNext(currentB);
-            }
-            else if(currentB == nullptr){
-                newListPointer->setNext(currentA);
-            }
+        //merging the lists
+        while(currentA != nullptr && currentB != nullptr) {
 
-            
             if(currentA->getData() <= currentB->getData() && currentA != nullptr) {
                 newListPointer->setNext(currentA);
                 // cout << newListPointer->getData() << endl;
@@ -146,14 +141,19 @@ class LinkedList {
             // cout << currentA->getData() << endl;
             // cout << currentB->getData() << endl;
             // cout << newListPointer->getData() << endl;
-        
         }
+        if(currentA == nullptr) {
+            newListPointer->setNext(currentB);
+        }
+        else if(currentB == nullptr){
+            newListPointer->setNext(currentA);
+        }
+
 
         return newHead;
         
 }
 
-    
     
 };
 
