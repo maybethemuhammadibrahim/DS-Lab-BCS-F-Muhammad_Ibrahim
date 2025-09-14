@@ -1,12 +1,3 @@
-/******************************************************************************
-Use a circular linked list to solve the Josephus problem:
-• N people stand in a circle, eliminating every k-th person until only one survives.
-• Input: N = 7, k = 3
-• Output: Position of survivor.
-• Hint: Use circular traversal and deletion.
-
-*******************************************************************************/
-
 #include <iostream>
 using namespace std;
 
@@ -29,25 +20,10 @@ class Node {
         return next;
     }
 
-    void setData(int data) {
-        this->data = data;
-    }
-
     ~Node() {
         delete next;
     }
 };
-
-Node* getEndNode(Node *start, int k, int iterations) {
-         Node *end = start;
-         for(int i = 1; i < k - (2 * iterations); i++) {
-            if(end->getNext() == nullptr) {
-                break;
-            }
-            end = end->getNext();
-         }
-         return end;
-    }
 
 class LinkedList {
     private:
@@ -56,17 +32,10 @@ class LinkedList {
     public:
     LinkedList(Node *head = nullptr) : head(head) {}
 
-    void setHead(Node *head) {
-        this->head = head;
-    }
-
-    Node* getHead() {
-        return head;
-    }
-
     void display() {
         if(head == nullptr) {
             cout << "Linked List is empty" << endl;
+            return;
         }
         Node *current = head;
         int i = 0;
@@ -93,68 +62,117 @@ class LinkedList {
         if(current->getNext() == nullptr) {
             current->setNext(newNode);
         }
-        
     }
-    
 
-    friend void reverseList(LinkedList &l, int k) {
-        Node *kStart, *kEnd, *current, temp;
-        current = l.head;
-
+    int getListSize() {
+        int count = 0;
+        Node *current = head;
         while(current != nullptr) {
-
-            kStart = current;
-            for(int i = 0; kStart != kEnd; i++){
-               
-
-                kEnd = getEndNode(kStart, k, i);
-                //  cout << "kEnd" << kEnd->getData() << endl;
-                // cout << "0" << endl;
-                temp.setData(kEnd->getData());
-                kEnd->setData(kStart->getData());
-                kStart->setData(temp.getData());
-                // cout << "kStart" << kStart->getData() << endl;
-                // cout << "kEnd" << kEnd->getData() << endl;
-
-                kStart = kStart->getNext();
-            }
-            
-            
-            
-
-            current = getEndNode(current, k, 0);//will point to node at k
-            // cout << current->getData();
+            count++;
             current = current->getNext();
-            // cout << current->getData();
+        }
+        return count;
+    }
+
+    void reverseInGroupsOfK(int k) {
+        if(head == nullptr || k <= 1) {
+            return;
         }
 
+        int totalSize = getListSize();
+        Node *newHead = nullptr;
+        Node *prevGroupTail = nullptr;
+        Node *current = head;
+
+        while(current != nullptr && totalSize >= k) {
+            Node *groupHead = current;
+            Node *prev = nullptr;
+            Node *next = nullptr;
+
+            //reverse k nodes
+            for(int i = 0; i < k && current != nullptr; i++) {
+                next = current->getNext();
+                current->setNext(prev);
+                prev = current;
+                current = next;
+            }
+
+            //prev is now the new head of this group
+            if(newHead == nullptr) {
+                newHead = prev;
+            }
+
+            //connect previous group tail to current group head
+            if(prevGroupTail != nullptr) {
+                prevGroupTail->setNext(prev);
+            }
+
+            //groupHead is now the tail of current group
+            prevGroupTail = groupHead;
+            totalSize -= k;
+        }
+
+        //connect remaining nodes if any
+        if(prevGroupTail != nullptr) {
+            prevGroupTail->setNext(current);
+        }
+
+        head = newHead;
     }
 
-    
+    void displayInLine() {
+        if(head == nullptr) {
+            cout << "List is empty" << endl;
+            return;
+        }
+        Node *current = head;
+        while(current != nullptr) {
+            cout << current->getData();
+            if(current->getNext() != nullptr) {
+                cout << " -> ";
+            }
+            current = current->getNext();
+        }
+        cout << endl;
+    }
 };
-
-
-// kStart1
-
-
 
 int main()
 {
-    LinkedList l1;
-    // cout << "Created ll" << endl;
-    l1.insertAtEnd(1);
-    l1.insertAtEnd(2);
-    l1.insertAtEnd(3);
-    l1.insertAtEnd(4);
-    l1.insertAtEnd(5);
-    // l1.insertAtEnd(6);
-    // l1.insertAtEnd(7);
-    // l1.insertAtEnd(8);
-    // l1.insertAtEnd(9);
-    // l1.insertAtEnd(10);
+    LinkedList list;
+    
+    //creating the example list
+    list.insertAtEnd(1);
+    list.insertAtEnd(2);
+    list.insertAtEnd(3);
+    list.insertAtEnd(4);
+    list.insertAtEnd(5);
+    list.insertAtEnd(6);
+    list.insertAtEnd(7);
+    list.insertAtEnd(8);
 
+    cout << "Original List:" << endl;
+    list.displayInLine();
 
-    reverseList(l1, 3);
-    l1.display();
+    cout << "\nReversing in groups of 3:" << endl;
+    list.reverseInGroupsOfK(3);
+    list.displayInLine();
+
+    //test with another k value
+    LinkedList list2;
+    list2.insertAtEnd(1);
+    list2.insertAtEnd(2);
+    list2.insertAtEnd(3);
+    list2.insertAtEnd(4);
+    list2.insertAtEnd(5);
+    list2.insertAtEnd(6);
+
+    cout << "\nOriginal List:" << endl;
+    list2.displayInLine();
+
+    cout << "Reversing in groups of 2:" << endl;
+    list2.reverseInGroupsOfK(2);
+    list2.displayInLine();
+
     return 0;
 }
