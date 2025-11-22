@@ -40,6 +40,7 @@ class HTable {
                 return ;
             }
             index = (sIndex + i^2) % Table_size;
+            i++;
             if(index == sIndex) {
                 cout << "Hash Table Full" << endl;
                 return ;
@@ -63,6 +64,7 @@ class HTable {
             }
             
                 index = (sIndex + i^2) % Table_size;
+                i++;
                 if(index == sIndex) {
                     cout << "Record Not Found" << endl;
                     return ;
