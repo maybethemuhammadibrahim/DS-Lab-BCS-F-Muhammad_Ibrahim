@@ -95,20 +95,22 @@ public:
 
 int main() {
     AVLTree t;
-    //Initial nodes: 10, 5, 15, 3, 7
     t.root = t.insert(t.root, 10);
     t.root = t.insert(t.root, 5);
     t.root = t.insert(t.root, 15);
     t.root = t.insert(t.root, 3);
     t.root = t.insert(t.root, 7);
+    t.preOrder(t.root);
+    cout << endl;
 
-    //Step 1: Insert 12
+    //Step 1 Insert 12
     t.root = t.insert(t.root, 12);
 
     //Steps 2-5 are handled automatically by insert() logic
     
-    //Step 6: Provide final balanced tree
+    //Step 6 Provide final balanced tree
     t.preOrder(t.root);
     cout << endl;
     return 0;
+
 }
